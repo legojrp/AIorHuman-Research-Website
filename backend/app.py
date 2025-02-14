@@ -1,25 +1,31 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+import post_distributor
+import submit
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/api/")
 def api():
-    political_tweets = [
-        "A brighter future starts with education reform. Every child deserves access to quality schooling, no matter their ZIP code. #EducationForAll",
-        "Climate change is the defining challenge of our time. We need bold action now to secure a sustainable planet for future generations. #ActOnClimate",
-        "Healthcare is a human right, not a privilege. It's time to ensure affordable healthcare for every American. #UniversalHealthcare",
-        "Our economy should work for everyone, not just the wealthiest 1%. Let's raise the minimum wage and ensure fair pay for all. #EconomicJustice",
-        "Democracy thrives when every voice is heard. Protect voting rights and ensure fair elections across the nation. #VotingRights",
-        "We honor the sacrifices of our veterans. It's our duty to provide them with the support and resources they deserve. #SupportOurVeterans",
-        "Gun violence is a public health crisis. We must pass common-sense gun reform to protect our communities. #GunSafety",
-        "Equality for all means protecting LGBTQ+ rights, fighting discrimination, and fostering inclusivity. #LoveIsLove",
-        "It's time to rebuild our nation's infrastructure, creating jobs and ensuring safety for generations to come. #InfrastructureWeek",
-        "Immigration strengthens our country. We need compassionate and comprehensive immigration reform. #ImmigrationReform"
-    ]
-    return jsonify(political_tweets)
+    df = pd.read_csv('result.csv')
+    posts = post_distributor.get_quiz(df)
+    print(posts)
+    return jsonify(posts)
+
+# @app.route("/api/reset")
+# def reset():
+#     result = post_distributor.get_list()
+#     return jsonify(result.to_dict("records"))
+
+@app.route("/api/submit", methods=["POST"])
+def submit_answers():
+    data = request.get_json()
+    percentage = submit.check_answers(data)
+    return jsonify({"score": str(percentage)})
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=5001, debug=True)
+
 

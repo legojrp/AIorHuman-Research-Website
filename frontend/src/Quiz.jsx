@@ -15,7 +15,7 @@ import { useState, useEffect,  } from "react";
     
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-      fetch("http://localhost:5000/api/")
+      fetch("http://localhost:5001/api/")
         .then(response => response.json())
         .then(data => setPosts(data));
     }, []);
@@ -31,15 +31,15 @@ import { useState, useEffect,  } from "react";
   
     const [selectedPosts, setSelectedPosts] = useState([]);
     
-    const handleSelect = (postIndex, choice) => {
+    const handleSelect = (postIndex, choice, backendIndex) => {
       setSelectedPosts((prev) => {
         const existingSelectionIndex = prev.findIndex((post) => post.postIndex === postIndex);
         if (existingSelectionIndex !== -1) {
           const updatedPosts = [...prev];
-          updatedPosts[existingSelectionIndex] = { postIndex, choice };
+          updatedPosts[existingSelectionIndex] = { postIndex, choice, backendIndex };
           return updatedPosts;
         }
-        return [...prev, { postIndex, choice }];
+        return [...prev, { postIndex, choice, backendIndex }];
       });
     };
     
@@ -51,6 +51,22 @@ import { useState, useEffect,  } from "react";
     useEffect(() => {
       console.log(selectedPosts);
     }, [selectedPosts]);
+
+    const handleSubmit = () => {
+      console.log(selectedPosts);
+      fetch("http://localhost:5001/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedPosts),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          window.location.href = "/success?score=" + data.score;
+        })
+    }
   
     return (
       <Box bg="black" color="white" minH="100vh" py={10} px={6}>
@@ -64,9 +80,10 @@ import { useState, useEffect,  } from "react";
           {posts.map((postText, index) => (
             <QuizPost
               key={index}
-              postText={postText}
+              postText={postText["Post"]}
+              backendIndex={postText["index"]}
               postIndex={index}
-              onSelect={(choice) => handleSelect(index, choice)}
+              onSelect={(choice) => handleSelect(index, choice, postText["index"])}
               selectedChoice={()=> getSelected(index)}
             />
           ))}
@@ -83,6 +100,7 @@ import { useState, useEffect,  } from "react";
               boxShadow: "0px 0px 20px #9D4EDD",
             }}
             px={10}
+            onClick={handleSubmit}
           >
             Submit Answers
           </Button>

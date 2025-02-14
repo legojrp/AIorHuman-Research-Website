@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Disclaimer from './Disclaimer';
 import Quiz from './Quiz';
 import { Box} from '@chakra-ui/react';
+import SurveyResultPage from './Success';
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/success" element={<SurveyResultPage />} />
         </Routes>
       </Box>
     </BrowserRouter>

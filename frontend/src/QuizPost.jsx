@@ -1,7 +1,7 @@
   import React from "react";
   import { Box, Text, Button, SimpleGrid, Divider, Heading } from "@chakra-ui/react";
   
-  const QuizPost = ({ postText, onSelect, postIndex, selectedChoice }) => {
+  const QuizPost = ({ postText, onSelect, postIndex, selectedChoice, backendIndex }) => {
 
     const renderTextWithHashtags = (text) => {
         const parts = text.split(/(\#\w+)/); // Split by hashtags
