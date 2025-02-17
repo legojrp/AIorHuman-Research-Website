@@ -61,11 +61,11 @@ def get_quiz(result):
     quiz_posts = pd.DataFrame()
 
     fil_results = result[result["Average"] > 50]
-    selected_indices = fil_results.sample(4)
+    selected_indices = fil_results.sample(5)
     quiz_posts = quiz_posts._append(selected_indices)
 
     fil_results = result[(50 > result["Average"]) > 0]
-    selected_indices = fil_results.sample(4) 
+    selected_indices = fil_results.sample(5) 
     quiz_posts = quiz_posts._append(selected_indices)
 
     quiz_posts = quiz_posts.sample(frac=1)

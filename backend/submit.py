@@ -10,7 +10,6 @@ def check_answers(data):
     result = pd.read_csv("result.csv")
     
     for datapoint in data:
-        print(datapoint)
         row = result.loc[result['index'] == datapoint['backendIndex']]
         if datapoint["choice"] == "human":
             result.loc[row.index, "human"] += 1
@@ -20,12 +19,12 @@ def check_answers(data):
         total += 1
         
         print(row["Average"].values[0])
+        print(row["Average"].values[0] < 50)
 
         if row["Average"].values[0] < 50 and datapoint["choice"] == "human":
             total_correct += 1
-        elif row["Average"].values[0] > 50 and datapoint["choice"] == "AI":
+        elif row["Average"].values[0] > 50 and datapoint["choice"] == "notHuman":
             total_correct += 1
-        result.loc[row.index, :] = row
     
     result.to_csv("result.csv", index=False)
 

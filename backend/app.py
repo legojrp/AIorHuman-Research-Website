@@ -14,10 +14,10 @@ def api():
     print(posts)
     return jsonify(posts)
 
-# @app.route("/api/reset")
-# def reset():
-#     result = post_distributor.get_list()
-#     return jsonify(result.to_dict("records"))
+@app.route("/api/reset")
+def reset():
+    result = post_distributor.get_list()
+    return jsonify(result.to_dict("records"))
 
 @app.route("/api/submit", methods=["POST"])
 def submit_answers():

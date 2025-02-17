@@ -24,10 +24,10 @@ const HomePage = () => {
             textAlign="center"
             >
             <Heading size="2xl" fontWeight="bold" mb={4}>
-                AI or Human on Social Media
+                AI or Human? - A Social Media Research Quiz
             </Heading>
             <Text fontSize="xl" color="gray.400" mb={6}>
-                Can you tell if social media posts are created by AI or humans? 
+                AI has become a significant player in social media posts. Can you tell the difference between AI-generated content and human-generated content?
             </Text>
             <Button 
                 colorScheme="blue" 

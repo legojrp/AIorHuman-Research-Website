@@ -72,7 +72,13 @@ import { useState, useEffect,  } from "react";
       <Box bg="black" color="white" minH="100vh" py={10} px={6}>
         {/* Header */}
         <Heading size="xl" fontWeight="bold" textAlign="center" mb={8}>
-          Quiz: Identify the AI
+          Identify the AI-generated Posts!
+          <Text fontSize="md" color="gray.400">
+            Scroll to move on
+          </Text>
+          <Text fontSize="md" color="gray.400">
+          ↓
+          </Text>
         </Heading>
   
         {/* Posts */}
