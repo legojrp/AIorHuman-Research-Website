@@ -15,7 +15,7 @@ import { useState, useEffect,  } from "react";
     
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-      fetch("http://localhost:5001/api/")
+      fetch("/api")
         .then(response => response.json())
         .then(data => setPosts(data));
     }, []);
@@ -54,7 +54,7 @@ import { useState, useEffect,  } from "react";
 
     const handleSubmit = () => {
       console.log(selectedPosts);
-      fetch("http://localhost:5001/api/submit", {
+      fetch("/api/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
