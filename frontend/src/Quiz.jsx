@@ -15,7 +15,7 @@ import { useState, useEffect,  } from "react";
     
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-      baseUrl = window.location.origin;
+      const baseUrl = window.location.origin;
       fetch(`${baseUrl}/api/api`)
         .then(response => response.json())
         .then(data => setPosts(data));
