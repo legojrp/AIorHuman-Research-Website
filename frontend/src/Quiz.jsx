@@ -16,7 +16,7 @@ import { useState, useEffect,  } from "react";
     const [posts, setPosts] = useState([]);
     useEffect(() => {
       const baseUrl = window.location.origin;
-      fetch(`${baseUrl}/api/api`)
+      fetch(`${baseUrl}/api/api/`)
         .then(response => response.json())
         .then(data => setPosts(data));
     }, []);
@@ -57,7 +57,7 @@ import { useState, useEffect,  } from "react";
       console.log(selectedPosts);
       const baseUrl = window.location.origin;  // Automatically gets the domain and port
       // fetch(`${baseUrl}/api`)
-      fetch(`${baseUrl}/api/api/submit`, {
+      fetch(`${baseUrl}/api/api/submit/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
